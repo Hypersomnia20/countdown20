@@ -1,0 +1,139 @@
+# countdown20
+高考倒计时
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高考倒计时壁纸</title>
+    <style>
+        /* 全屏星空特效 */
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #000;
+            overflow: hidden;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        /* 星空动画 */
+        #stars {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* 倒计时面板 */
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 30px;
+            animation: glow 2s infinite alternate;
+        }
+
+        #countdown {
+            font-size: 2.5em;
+        }
+
+        .unit {
+            display: inline-block;
+            margin: 0 15px;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+
+        /* 手机适配 */
+        @media (max-width: 600px) {
+            h1 { font-size: 2em; }
+            .unit { font-size: 0.8em; }
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #fff; }
+            to { text-shadow: 0 0 20px #fff, 0 0 30px #4CAF50; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 星空背景 -->
+    <div id="stars"></div>
+
+    <div class="container">
+        <h1>🌟 高考倒计时壁纸 🌟</h1>
+        <div id="countdown"></div>
+    </div>
+
+    <script>
+        // 自动计算765天后的日期
+        const today = new Date();
+        const gaokaoDate = new Date(today);
+        gaokaoDate.setDate(today.getDate() + 765); 
+
+        // 生成星空
+        function createStars() {
+            const stars = document.getElementById('stars');
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.style.cssText = `
+                    position: absolute;
+                    width: ${Math.random() * 3}px;
+                    height: ${Math.random() * 3}px;
+                    background: #fff;
+                    top: ${Math.random() * 100}%;
+                    left: ${Math.random() * 100}%;
+                    opacity: ${Math.random()};
+                    animation: twinkle ${5 + Math.random() * 5}s infinite;
+                `;
+                stars.appendChild(star);
+            }
+        }
+
+        // 更新倒计时
+        function updateCountdown() {
+            const now = new Date();
+            const diff = gaokaoDate - now;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerHTML = `
+                <div class="unit">${days} 天</div>
+                <div class="unit">${hours} 时</div>
+                <div class="unit">${minutes} 分</div>
+                <div class="unit">${seconds} 秒</div>
+            `;
+        }
+
+        // 初始化
+        createStars();
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
+const motivation = [
+    "你刷的每道题都在为梦想添砖加瓦 🧱",
+    "今天的努力是明天的底气 💪", 
+    "悄悄拔尖，然后惊艳所有人 ✨",
+    "当你觉得累时，正是在走上坡路 🏞️"
+];
+
+function sendBlessing() {
+    setInterval(() => {
+        alert(motivation[Math.floor(Math.random() * 4)]);
+    }, 3600000); // 每小时弹出一次鼓励
+}
